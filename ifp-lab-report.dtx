@@ -23,6 +23,7 @@
 %<*class>
     [2022/12/13 v0.1 A class providing special environments and commands for writing reports for laboratory courses realized by the Institute of Physics]
 %</class>
+%<class>\LoadClass{}
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -105,3 +106,50 @@
 %
 % \DescribeMacro{\tutor}
 % |\tutor| \marg{name} sets the name of the tutor who is present during the experiments
+%
+% \DescribeMacro{\supervisor}
+% |\supervisor| \marg{name} sets the name of the supervisor who is present during the experiments
+% 
+% \section{Implementation}
+% \begin{macro}{\rom}
+%    The macro |\rom| \marg{number} takes the supplied number and prints out the uppercase roman number
+%    \begin{macrocode}
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\partnerOne}
+%    |\partnerOne| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} takes the name,
+%    matriculation number and email address of the first partner and sets it in a way the similat to how  the
+%    author command works.
+%    \begin{macrocode}
+\newcommand{\partnerOne}[4]{%
+    \renewcommand{\@partnerOneFirstName}{#1}%
+    \renewcommand{\@partnerOneLastName}{#2}%
+    \renewcommand{\@partnerOneMatriculationNumber}{#3}%
+    \renewcommand{\@partnerOneEMail}{#4}%
+}
+\newcommand{\@partnerOneFirstName}{}
+\newcommand{\@partnerOneLastName}{}
+\newcommand{\@partnerOneMatriculationNumber}{}
+\newcommand{\@partnerOneEMail}{}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\partnerTwo}
+%    |\partnerTwo| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} takes the name,
+%    matriculation number and email address of the first partner and sets it in a way the similat to how  the
+%    author command works.
+%    \begin{macrocode}
+\newcommand{\partnerTwo}[4]{
+    \renewcommand{\@partnerTwoFirstName}{#1}
+    \renewcommand{\@partnerTwoLastName}{#2}
+    \renewcommand{\@partnerTwoMatriculationNumber}{#3}
+    \renewcommand{\@partnerTwoEMail}{#4}
+}
+\newcommand{\@partnerTwoFirstName}{}
+\newcommand{\@partnerTwoLastName}{}
+\newcommand{\@partnerTwoMatriculationNumber}{}
+\newcommand{\@partnerTwoEMail}{}
+%    \end{macrocode}
+% \end{macro}
