@@ -221,3 +221,13 @@
 \newcommand{\@tutor}{}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{\supervisor}
+%    |\supervisor| \marg{name} uses the same structure as the author command
+%    \begin{macrocode}
+\newcommand{\supervisor}[1]{
+    \renewcommand{\@supervisor}{#1}
+}
+\newcommand{\@supervisor}{}
+%    \end{macrocode}
+% \end{macro}
