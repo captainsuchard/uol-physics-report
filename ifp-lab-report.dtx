@@ -133,7 +133,7 @@
 % last names since some fields only use the last names.
 %
 % \DescribeMacro{\module}
-% |\module| \marg{number} \marg{title}  allows setting the module title and number which is printed in the file
+% |\module| \marg{number} \marg{title} allows setting the module title and number which is printed in the file
 % header
 %
 % \DescribeMacro{\tutor}
@@ -186,5 +186,17 @@
 \newcommand{\@partnerTwoLastName}{}
 \newcommand{\@partnerTwoMatriculationNumber}{}
 \newcommand{\@partnerTwoEMail}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\module}
+%    |\module| \marg{number} \marg{title} uses the same structure as the author command
+%    \begin{macrocode}
+\newcommand{\module}[2]{
+    \renewcommand{\@moduleNumber}{#1}
+    \renewcommand{\@moduleName}{#2}
+}
+\newcommand{\@moduleNumber}{}
+\newcommand{\@moduleName}{}
 %    \end{macrocode}
 % \end{macro}
