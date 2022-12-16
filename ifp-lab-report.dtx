@@ -55,6 +55,8 @@
 %<class>\pagestyle{fancy}
 % set the head height to 24pt to display the content correctly
 %<class>\setlength{\headheight}{24pt}
+% set up the siunitx package to correctly display numbers and uncertainites
+%<class>\sisetup{group-digits=none, table-alignment=center, locale=DE, uncertainty-mode=seperate, output-open-uncertainty = [, output-close-uncertainty = ]}
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{shortvrb}
