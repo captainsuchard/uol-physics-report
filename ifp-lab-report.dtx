@@ -211,3 +211,13 @@
 \newcommand{\@moduleName}{}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{\tutor}
+%    |\tutor| \marg{name} uses the same structure as the author command
+%    \begin{macrocode}
+\newcommand{\tutor}[1]{
+    \renewcommand{\@tutor}{#1}
+}
+\newcommand{\@tutor}{}
+%    \end{macrocode}
+% \end{macro}
