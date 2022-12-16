@@ -57,6 +57,14 @@
 %<class>\setlength{\headheight}{24pt}
 % set up the siunitx package to correctly display numbers and uncertainites
 %<class>\sisetup{group-digits=none, table-alignment=center, locale=DE, uncertainty-mode=seperate, output-open-uncertainty = [, output-close-uncertainty = ]}
+% set up the page header
+%<*class>
+\fancyhead[L]{Gruppe \@group \\ \@partnerOneLastName, \@partnerTwoLastName}
+\fancyhead[C]{\@title \\ \@moduleNumber --- \@moduleName}
+\fancyhead[R]{\@data \\ \@semester
+}
+%</class>
+%
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{shortvrb}
