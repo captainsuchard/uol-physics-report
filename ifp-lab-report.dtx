@@ -17,14 +17,40 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{ifp-lab-report.dtx}
-%</diver>
+%</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{ifp-lab-report}
-%<*class>
-    [2022/12/13 v0.1 A class providing special environments and commands for writing reports for laboratory courses realized by the Institute of Physics]
-%</class>
-%<class>\LoadClass{}
+%<class>\ProvidesClass{ifp-lab-report}[2022/12/13 v0.1 A class providing special environments and commands for writing reports for laboratory courses realized by the Institute of Physics]
 %
+% Used Packages and base class
+%<*class>
+\LoadClass{a4paper,12pt,leqno}{article}
+\RequirePackage{babel}
+\RequirePackage[left=1.75cm,right=1.75cm,top=1.75cm,bottom=2cm,footskip=15pt]{geometry}
+\RequirePackage{mlmodern}
+\RequirePackage{amsmath,amssymb,amsfonts,amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{fancyhdr}
+\RequirePackage{titling}
+\RequirePackage{subcaption}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage[bottom]{footmisc}
+\RequirePackage[useregional]{datetime2}
+\RequirePackage{listings}
+\RequirePackage[hypcap=true]{caption}
+\RequirePackage{pdfpages}
+\RequirePackage{siunitx}
+\RequirePackage{esdiff}
+\RequirePackage{tcolorbox}
+\RequirePackage{xcolor}
+\RequirePackage{titleref}
+\RequirePackage{parskip}
+\RequirePackage{setspace}
+\RequirePackage[european,siunitx]{circuitikz}
+\RequirePackage[pdfusetitle,hidelinks]{hyperref}
+\RequirePackage[nameinlink,capitalize]{cleveref}
+\RequirePackage{titlesec}
+%</class>
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{shortvrb}
