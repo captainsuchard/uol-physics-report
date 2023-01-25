@@ -16,10 +16,10 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{ifp-lab-report.dtx}
+\ProvidesFile{uol-physics-report.dtx}
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\ProvidesClass{ifp-lab-report}
+%<class>\ProvidesClass{uol-physics-report}
 %<*class>
 [2022/12/13 v0.1 A class providing special environments and commands for writing reports for laboratory courses realized by the Institute of Physics]
 %</class>
@@ -28,7 +28,6 @@
 %<class>\LoadClass[a4paper,12pt,leqno]{article}
 %<class>\RequirePackage{babel}
 %<class>\RequirePackage[left=1.75cm,right=1.75cm,top=1.75cm,bottom=2cm,footskip=15pt]{geometry}
-%<class>\RequirePackage{mlmodern}
 %<class>\RequirePackage{amsmath,amssymb,amsfonts,amsthm}
 %<class>\RequirePackage{mathtools}
 %<class>\RequirePackage{fancyhdr}
@@ -51,64 +50,65 @@
 %<class>\RequirePackage[european,siunitx]{circuitikz}
 %<class>\RequirePackage[pdfusetitle,hidelinks]{hyperref}
 %<class>\RequirePackage[nameinlink,capitalize]{cleveref}
-%<class>\RequirePackage{titlesec}
+%<class>\RequirePackage{arrayjobx}
+%<class>\RequirePackage{multido}
+%<class>\RequirePackage[compact]{titlesec}
 % set the page style to fancy to display headers
 %<class>\pagestyle{fancy}
 % set the head height to 24pt to display the content correctly
-%<class>\setlength{\headheight}{24pt}
+%<class>\setlength{\headheight}{27.5pt}
 % set up the siunitx package to correctly display numbers and uncertainites
-%<class>\sisetup{group-digits=none, table-alignment=center, locale=DE, uncertainty-mode=seperate, output-open-uncertainty = [, output-close-uncertainty = ]}
+%<class>\sisetup{group-digits=none, table-alignment=center, locale=DE, uncertainty-mode=separate, output-open-uncertainty = [, output-close-uncertainty = ]}
 % set up the page header
-%<*class>
-\fancyhead[L]{Gruppe \@group \\ \@partnerOneLastName, \@partnerTwoLastName}
-\fancyhead[C]{\@title \\ \@moduleNumber --- \@moduleName}
-\fancyhead[R]{\@data \\ \@semester
-}
-%</class>
+%<class>\fancyhead[L]{\small\multido{\iP=1+1}{\value{partnerCounter}}{\arrayx{PartnerLastNames}(\iP)\ifnumcomp{\iP}{<}{\value{partnerCounter}}{, }{}}}
+%<class>\fancyhead[C]{\small\@title \\ \@moduleNumber \ -- \@moduleName}
+%<class>\fancyhead[R]{\small\@date \\ \@semester}
+% setup the all the chapter headings
+%<class>\titleformat{\part}{\large\scshape}{\thepart}{1ex}{}
+%<class>\titleformat{\section}{\bfseries}{\thesection}{1ex}{}
+%<class>\titleformat{\subsection}{\slshape}{\thesubsection}{1ex}{}
+%<class>\titleformat{\subsubsection}{\itshape}{\thesubsubsection}{1ex}{}
+%<class>\titlespacing*{\part}{0pt}{0pt}{*1}
+%<class>\titlespacing*{\section}{0pt}{*1}{*1}
+%<class>\titlespacing*{\subsection}{0pt}{*1}{*1}
+%<class>\titlespacing*{\subsubsection}{0pt}{*1}{*1}
+% set up the lists for the names and matriculation numbers
+%<class>\newarray\PartnerFirstNames
+%<class>\newarray\PartnerLastNames
+%<class>\newarray\PartnerEmails
+%<class>\newarray\PartnerMatriculationNumbers
+% set up a counter to keep track of the partners
+%<class>\newcounter{partnerCounter}
 %
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{shortvrb}
+\usepackage{etoolbox}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 \begin{document}
-    \DocInput{ifp-lab-report.dtx}
+    \DocInput{uol-physics-report.dtx}
 \end{document}
 %</driver>
 % \fi
 % 
 % \CheckSum{0}
-% \CharacterTable
-% {Upper-case \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%  Lower-case \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%  Digits \0\1\2\3\4\5\6\7\8\9
-%  Exclamation \!   Double quote \" Hash (number) \#
-%  Dollar \$        Percent \%      Ampersand \&
-%  Acute accent \’  Left paren \(   Right paren \)
-%  Asterisk \*      Plus \+         Comma \,
-%  Minus \-         Point \.        Solidus \/
-%  Colon \:         Semicolon \;    Less than \<
-%  Equals \=        Greater than \> Question mark \?
-%  Commercial at \@ Left bracket \[ Backslash \\
-%  Right bracket \] Circumflex \^   Underscore \_
-%  Grave accent \‘  Left brace \{   Vertical bar \|
-%  Right brace \}   Tilde \~ }
 %
 %
 % \changes{v0.1}{2022/12/13}{Initial version}
 %
-% \GetFileInfo{ifp-lab-report.dtx}
+% \GetFileInfo{uol-physics-report.dtx}
 %
-% \title{The ifp-lab-report class\thanks{This document 
-% corresponds to \textsf{ifp-lab-report}~\fileversion,
+% \title{The uol-physics-report class\thanks{This document 
+% corresponds to \textsf{uol-physics-report}~\fileversion,
 % dated \filedate.}}
 % \author{Jan Eike Suchard \\ \texttt{jan-eike.suchard@magenta.de}}
 %
 % \maketitle
 % 
 % \begin{abstract}
-%    This document describes the usage of the \texttt{ifp-lab-report} document class.
+%    This document describes the usage of the \texttt{uol-physics-report} document class.
 %
 %    The document class is based on an initial laboratory report wirtten by me which I have been asked to share with
 %    other students at my university. The laboratory report class is mainly optimized for reports written during the
@@ -131,15 +131,10 @@
 % This section contains the macros used to set up the general report texts like headers and such. You may want to put
 % those commands into a \texttt{header.tex} file since those values never change.
 %
-% \DescribeMacro{\partnerOne}
-% |\partnerOne| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} Sets the first 
-% experiment partner for this protocol. It is recommended to sort the partner enumeration by the sorting of their
-% last names since some fields only use the last names.
+% \DescribeMacro{\partner}
+% |\partner| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} Sets one of many partners
+% participating in the protocol
 % 
-% \DescribeMacro{\partnerTwo}
-% |\partnerTwo| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} Sets the second 
-% experiment partner for this protocol. It is recommended to sort the partner enumeration by the sorting of their
-% last names since some fields only use the last names.
 %
 % \DescribeMacro{\module}
 % |\module| \marg{number} \marg{title} allows setting the module title and number which is printed in the file
@@ -165,39 +160,18 @@
 %    \end{macrocode}
 % \end{macro}
 
-% \begin{macro}{\partnerOne}
-%    |\partnerOne| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} takes the name,
-%    matriculation number and email address of the first partner and sets it in a way the similat to how  the
+% \begin{macro}{\partner}
+%    |\partner| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} takes the name,
+%    matriculation number and email address of a partner and sets it in a way the similat to how  the
 %    author command works.
 %    \begin{macrocode}
-\newcommand{\partnerOne}[4]{%
-    \renewcommand{\@partnerOneFirstName}{#1}%
-    \renewcommand{\@partnerOneLastName}{#2}%
-    \renewcommand{\@partnerOneMatriculationNumber}{#3}%
-    \renewcommand{\@partnerOneEMail}{#4}%
+\newcommand{\partner}[4]{%%
+    \addtocounter{partnerCounter}{1}
+    \PartnerFirstNames(\value{partnerCounter})={#1}
+    \PartnerLastNames(\value{partnerCounter})={#2}
+    \PartnerEmails(\value{partnerCounter})={#3}
+    \PartnerMatriculationNumbers(\value{partnerCounter})={#4}
 }
-\newcommand{\@partnerOneFirstName}{}
-\newcommand{\@partnerOneLastName}{}
-\newcommand{\@partnerOneMatriculationNumber}{}
-\newcommand{\@partnerOneEMail}{}
-%    \end{macrocode}
-% \end{macro}
-
-% \begin{macro}{\partnerTwo}
-%    |\partnerTwo| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} takes the name,
-%    matriculation number and email address of the first partner and sets it in a way the similat to how  the
-%    author command works.
-%    \begin{macrocode}
-\newcommand{\partnerTwo}[4]{
-    \renewcommand{\@partnerTwoFirstName}{#1}
-    \renewcommand{\@partnerTwoLastName}{#2}
-    \renewcommand{\@partnerTwoMatriculationNumber}{#3}
-    \renewcommand{\@partnerTwoEMail}{#4}
-}
-\newcommand{\@partnerTwoFirstName}{}
-\newcommand{\@partnerTwoLastName}{}
-\newcommand{\@partnerTwoMatriculationNumber}{}
-\newcommand{\@partnerTwoEMail}{}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -230,5 +204,66 @@
     \renewcommand{\@supervisor}{#1}
 }
 \newcommand{\@supervisor}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\group}
+%    |\group| \marg{number} uses the same structure as the author command
+%    \begin{macrocode}
+\newcommand{\group}[1]{
+    \renewcommand{\@group}{#1}
+}
+\newcommand{\@group}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\semester}
+%    |\semester| \marg{semester} uses the same structure as the author command
+%    \begin{macrocode}
+\newcommand{\semester}[1]{
+    \renewcommand{\@semester}{#1}
+}
+\newcommand{\@semester}{}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\maketitle}
+%    |\maketitle| creates a title page for the laboratory report
+%    \begin{macrocode}
+\renewcommand{\maketitle}{%
+\begin{titlepage}
+    \begin{center}
+        \singlespacing
+        \topskip0pt
+        \vspace*{\fill}
+        \pagenumbering{Roman}
+        {\Large \@moduleName \ -- \@semester }\\
+        \vspace{4em}
+        {\huge \textsc{\thetitle}}\\
+        \vspace{4em}
+        {\Large \thedate}\\
+        \vspace{0.5em}
+        {\Large Gruppe \@group}\\
+        \vspace{3em}
+        \begin{tabular}[t]{c@{\extracolsep{8em}}c}
+            {\Large\textbf{Betreuer}} & {\Large\textbf{Tutor}} \\
+            {\large \@supervisor} & {\large \@tutor} \\
+        \end{tabular}\\
+        \vspace{3em}
+        {\Large\textbf{Gruppenmitglieder}} \\~\\
+        \multido{\iP=1+1}{\value{partnerCounter}}{%
+        {\large\textit{\arrayx{PartnerFirstNames}(\iP) \arrayx{PartnerLastNames}(\iP)}} \\ \vspace{0.75em}
+        Matrikelnummer: \arrayx{PartnerMatriculationNumbers}(\iP) \\ \vspace{0.5em}
+        \href{mailto:\arrayx{PartnerEmails}(\iP)}{\arrayx{PartnerEmails}(\iP)} \\ \vspace{1.5em}
+        }
+        \vspace*{\fill}
+        \thispagestyle{empty}
+        \newpage
+    \end{center}
+    \tableofcontents
+\end{titlepage}
+\pagenumbering{arabic}
+}
 %    \end{macrocode}
 % \end{macro}
