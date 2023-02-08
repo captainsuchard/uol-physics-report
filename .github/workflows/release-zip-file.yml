@@ -1,0 +1,23 @@
+name: release-zip-file
+run-name: Create CTAN-compatible .zip File
+on: [release]
+jobs:
+  create-zip:
+    runs-on: ubuntu-latest
+    name: Create ZIP file
+    steps:
+      - name: List directories
+        run: |
+          ls -lha .
+          ls -lha ..
+      - name: Remove unwanted files
+        run: rm -r .git README.md .gitignore .github
+      - name: Change directories
+        run: cd ..
+      - name: Pack ZIP-file
+        run: zip -r uol-physics-report -o uol-physics-report.zip
+      - name: Upload ZIP file to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: output/test/code-coverage.html
