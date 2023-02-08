@@ -14,10 +14,10 @@ jobs:
           ls -lha ..
       - name: Remove unwanted files
         run: rm -r .git README.md .gitignore .github
-      - name: Change directories
-        run: cd ..
       - name: Pack ZIP-file
-        run: zip -r uol-physics-report
+        run: |
+          cd ..
+          zip -r uol-physics-report
       - name: Upload ZIP file to artifacts
         uses: actions/upload-artifact@v3
         with:
