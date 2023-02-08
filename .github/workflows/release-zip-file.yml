@@ -14,9 +14,11 @@ jobs:
           ls -lha ..
       - name: Remove unwanted files
         run: rm -r .git README.md .gitignore .github *.cls
+      - name: Copy files to output
+        run: cp --parents * ./uol-physics-report
       - name: Create CTAN-compliant zip file
         uses: actions/upload-artifact@v3
         with:
           name: uol-physics-report
           path: |
-            **
+            uol-physics-report/**
