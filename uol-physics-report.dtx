@@ -1,15 +1,15 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2022 by Jan Eike Suchard
+% Copyright (C) 2022-2023 by Jan Eike Suchard
 %
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
-% version 1.3 of this license or (at your option) any later
+% version 1.3c of this license or (at your option) any later
 % version. The latest version of this license is in:
 %
 % http://www.latex-project.org/lppl.txt
 %
-% and version 1.3 or later is part of all distributions of
+% and version 1.3c or later is part of all distributions of
 % LaTeX version 2005/12/01 or later.
 %
 % \fi
@@ -21,13 +21,13 @@
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesClass{uol-physics-report}
 %<*class>
-[2022/12/13 v0.1 A class providing special environments and commands for writing reports for laboratory courses realized by the Institute of Physics]
+[2023/01/27 v1.1 A class providing special environments and commands for writing reports for laboratory courses realized by the Institute of Physics]
 %</class>
 %
 % Used Packages and base class
 %<class>\LoadClass[a4paper,12pt,leqno]{article}
 %<class>\RequirePackage{babel}
-%<class>\RequirePackage[left=1.75cm,right=1.75cm,top=1.75cm,bottom=2cm,footskip=15pt]{geometry}
+%<class>\RequirePackage[left=1.25cm, right=1.25cm, top=1.75cm, bottom=1.5cm, footskip=15pt, head=28pt, headsep=0.25cm]{geometry}
 %<class>\RequirePackage{amsmath,amssymb,amsfonts,amsthm}
 %<class>\RequirePackage{mathtools}
 %<class>\RequirePackage{fancyhdr}
@@ -55,10 +55,12 @@
 %<class>\RequirePackage[compact]{titlesec}
 % set the page style to fancy to display headers
 %<class>\pagestyle{fancy}
-% set the head height to 24pt to display the content correctly
+% set the head height to 27.5pt to display the content correctly
 %<class>\setlength{\headheight}{27.5pt}
 % set up the siunitx package to correctly display numbers and uncertainites
 %<class>\sisetup{group-digits=none, table-alignment=center, locale=DE, uncertainty-mode=separate, output-open-uncertainty = [, output-close-uncertainty = ]}
+% set the content table depth to display subsubsections
+%<class>\setcounter{tocdepth}{3}
 % set up the page header
 %<class>\fancyhead[L]{\small\multido{\iP=1+1}{\value{partnerCounter}}{\arrayx{PartnerLastNames}(\iP)\ifnumcomp{\iP}{<}{\value{partnerCounter}}{, }{}}}
 %<class>\fancyhead[C]{\small\@title \\ \@moduleNumber \ -- \@moduleName}
@@ -96,7 +98,8 @@
 % \CheckSum{0}
 %
 %
-% \changes{v0.1}{2022/12/13}{Initial version}
+% \changes{v1.0}{2022/12/13}{Initial version}
+% \changes{v1.1}{2023/02/01}{Updated page geometry to create more space in accordance to the guidelines, Fixed erorr in commands create the titlepage}
 %
 % \GetFileInfo{uol-physics-report.dtx}
 %
@@ -117,10 +120,13 @@
 % \end{abstract}
 % 
 % \section{Introduction}
-% Writing a laboratory report is not easy as a first semester who is learning to use \LaTeX in a professional setting.
+% Writing a laboratory report is not easy as a first semester who is learning to use \LaTeX{} in a professional setting.
 % Furthermore, students need to write their laboratory reports with consistency and predefined formatting. To help with
 % this, the class uses some packages like \texttt{siunitx} to help with the correct display of results and formatting of
-% tables
+% tables.
+%
+% When using this class it is mandatory to set the date and the title with the commands |\date| and |\title|. Otherwise
+% the command |\maketitle| exits with an error.
 %
 % \section{Usage}
 % \subsection{General}
@@ -132,7 +138,7 @@
 % those commands into a \texttt{header.tex} file since those values never change.
 %
 % \DescribeMacro{\partner}
-% |\partner| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} Sets one of many partners
+% |\partner| \marg{First Name} \marg{Last Name} \marg{E-Mail Address} \marg{Matriculation Number} Sets one of many partners
 % participating in the protocol
 % 
 %
@@ -161,8 +167,8 @@
 % \end{macro}
 
 % \begin{macro}{\partner}
-%    |\partner| \marg{firstName} \marg{lastName} \marg{matriculationNumber} \marg{eMailAddress} takes the name,
-%    matriculation number and email address of a partner and sets it in a way the similat to how  the
+%    |\partner| \marg{First Name} \marg{Last Name} \marg{E-Mail Address} \marg{Matriculation Number} takes the name,
+%    matriculation number and email address of a partner and sets it in a way the similat to how the
 %    author command works.
 %    \begin{macrocode}
 \newcommand{\partner}[4]{%%
@@ -251,11 +257,11 @@
             {\large \@supervisor} & {\large \@tutor} \\
         \end{tabular}\\
         \vspace{3em}
-        {\Large\textbf{Gruppenmitglieder}} \\~\\
+        {\Large\textbf{Gruppenmitglieder}} \\
         \multido{\iP=1+1}{\value{partnerCounter}}{%
-        {\large\textit{\arrayx{PartnerFirstNames}(\iP) \arrayx{PartnerLastNames}(\iP)}} \\ \vspace{0.75em}
-        Matrikelnummer: \arrayx{PartnerMatriculationNumbers}(\iP) \\ \vspace{0.5em}
-        \href{mailto:\arrayx{PartnerEmails}(\iP)}{\arrayx{PartnerEmails}(\iP)} \\ \vspace{1.5em}
+        {\large\slshape {\arrayx{PartnerFirstNames}(\iP) \arrayx{PartnerLastNames}(\iP)}} \\
+        Matrikelnummer: \arrayx{PartnerMatriculationNumbers}(\iP) \\
+        \arrayx{PartnerEmails}(\iP) \\ \vspace{1.5em}
         }
         \vspace*{\fill}
         \thispagestyle{empty}
