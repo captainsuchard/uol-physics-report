@@ -18,7 +18,8 @@ jobs:
         run: |
           cd ..
           zip -r uol-physics-report.zip uol-physics-report
+          mv uol-physics-report.zip ./uol-physics-report/output/uol-physics-report.zip
       - name: Upload ZIP file to artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ../uol-physics-report.zip
+          path: output/uol-physics-report.zip
