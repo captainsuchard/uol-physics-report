@@ -16,6 +16,7 @@ jobs:
         run: rm -r .git README.md .gitignore .github *.cls
       - name: Pack ZIP-file
         run: |
+          mkdir output
           cd ..
           zip -r uol-physics-report.zip uol-physics-report
           mv uol-physics-report.zip ./uol-physics-report/output/uol-physics-report.zip
