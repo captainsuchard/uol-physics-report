@@ -2,24 +2,70 @@ name: release-zip-file
 run-name: Create CTAN-compatible .zip File
 on: [release, workflow_dispatch]
 jobs:
-  create-zip:
+  build-documentation:
+    name: Build documentation
     runs-on: ubuntu-latest
-    name: Create ZIP file
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: List directories
-        run: |
-          ls -lha .
-          ls -lha ..
-      - name: Remove unwanted files
-        run: rm -r .git README.md .gitignore .github
-      - name: Copy files to output
-        run: mkdir uol-physics-report && mkdir delete && touch delete/delete && cp -t ./uol-physics-report/ *.dtx *.ins *.pdf README
-      - name: Create CTAN-compliant zip file
+      - name:  Compile documentation
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: uol-physics-report.dtx
+      
+      - name: Add documentation to artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: uol-physics-report
-          path: |
-            uol-physics-report/
-            delete/
+          name: documentation
+          path: uol-physics-report.pdf
+            
+  create-ctan-file:
+    runs-on: ubuntu-latest
+    name: Create CTAN-compatible archive
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Download Documentation
+        uses: actions/download-artifact@v3
+        with:
+          name: documentation
+
+      - name: Remove unwanted files
+        run: rm -r .git README.md .gitignore .github
+
+      - name: Create ZIP File for release
+        run: |
+          mkdir uol-physics-report 
+          cp -t ./uol-physics-report/ *.dtx *.ins *.pdf README
+          zip -r uol-physics-report.zip uol-physics-report
+
+      - name: Add CTAN-compatible archive to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: archive
+          path: uol-physics-report.zip
+  make-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download CTAN-compatible archive
+        uses: actions/download-artifact@v3
+        with:
+          name: archive
+      - name: Download PDF documentation
+        uses: actions/download-artifact@v3
+        with:
+          name: documentation
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          files: |
+            LICENSE
+            README
+            uol-physics-report.zip
+
+     
