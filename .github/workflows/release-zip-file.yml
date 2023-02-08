@@ -1,6 +1,11 @@
 name: release-zip-file
 run-name: Create CTAN-compatible .zip File
-on: [release, workflow_dispatch]
+on:
+  push:
+    tags:
+      - v**
+  workflow_dispatch:
+    
 jobs:
   build-documentation:
     name: Build documentation
