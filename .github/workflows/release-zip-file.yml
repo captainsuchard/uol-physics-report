@@ -38,9 +38,6 @@ jobs:
         with:
           name: documentation
 
-      - name: Remove unwanted files
-        run: rm -r .git README.md .gitignore .github
-
       - name: Create ZIP File for release
         run: |
           mkdir uol-physics-report 
@@ -58,6 +55,9 @@ jobs:
     needs: create-ctan-file
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Download CTAN-compatible archive
         uses: actions/download-artifact@v3
         with:
@@ -74,6 +74,7 @@ jobs:
           files: |
             LICENSE
             README
+            documentation.pdf
             uol-physics-report.zip
 
      
