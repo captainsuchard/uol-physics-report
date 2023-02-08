@@ -17,7 +17,7 @@ jobs:
       - name: Pack ZIP-file
         run: |
           cd ..
-          zip -r uol-physics-report
+          zip -r uol-physics-report.zip uol-physics-report
       - name: Upload ZIP file to artifacts
         uses: actions/upload-artifact@v3
         with:
