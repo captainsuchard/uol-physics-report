@@ -17,9 +17,9 @@ jobs:
       - name: Change directories
         run: cd ..
       - name: Pack ZIP-file
-        run: zip -r uol-physics-report -o uol-physics-report.zip
+        run: zip -r uol-physics-report
       - name: Upload ZIP file to artifacts
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
-          path: output/test/code-coverage.html
+          path: uol-physics-report.zip
