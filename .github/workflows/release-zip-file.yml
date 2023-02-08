@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Create ZIP file
     steps:
+      - uses: actions/checkout@v3
+
       - name: List directories
         run: |
           ls -lha .
