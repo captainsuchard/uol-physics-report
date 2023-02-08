@@ -14,13 +14,12 @@ jobs:
           ls -lha ..
       - name: Remove unwanted files
         run: rm -r .git README.md .gitignore .github *.cls
-      - name: Pack ZIP-file
+      - name: Move files to artifact folder
         run: |
           mkdir output
-          cd ..
-          zip -r uol-physics-report.zip uol-physics-report
-          mv uol-physics-report.zip ./uol-physics-report/output/uol-physics-report.zip
-      - name: Upload ZIP file to artifacts
+          mv * output/
+      - name: Create CTAN-compliant zip file
         uses: actions/upload-artifact@v3
         with:
-          path: output/uol-physics-report.zip
+          name: uol-physics-report
+          path: output/
