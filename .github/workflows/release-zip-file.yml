@@ -15,10 +15,11 @@ jobs:
       - name: Remove unwanted files
         run: rm -r .git README.md .gitignore .github
       - name: Copy files to output
-        run: mkdir uol-physics-report && cp -t ./uol-physics-report/ *.dtx *.ins *.pdf README
+        run: mkdir uol-physics-report && mkdir delete && touch delete/delete && cp -t ./uol-physics-report/ *.dtx *.ins *.pdf README
       - name: Create CTAN-compliant zip file
         uses: actions/upload-artifact@v3
         with:
           name: uol-physics-report
           path: |
-            uol-physics-report
+            uol-physics-report/
+            delete/
